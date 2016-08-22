@@ -1,0 +1,86 @@
+# -*- coding: utf-8 -*-
+#:kivy 1.9.1-dev
+
+<Label>:
+	font_name: 'simsun.ttc'
+
+
+<MyColorPicker>:
+    orientation: "vertical"
+    new_color: color_picker.color
+	ColorPicker:
+		id: color_picker
+		color: root.old_color
+    BoxLayout:
+    	size_hint_y: .2
+        Button:
+            text: "确认"
+            on_release: root.submit()
+        Button:
+            text: "取消"
+            on_release: root.cancel()
+
+<MyFileChooser>:
+    orientation: "vertical"
+    FileBrowser:
+        id: filechooser
+        select_string: '打开'
+        cancel_string: '取消'
+        on_success: root.choose(filechooser.path, filechooser.selection)
+        on_canceled: root.cancel()
+
+<SBSignWidget>:
+	orientation: 'vertical'
+	canvas:
+		Color: 
+			rgba: 1, 1, 1, 1
+        Rectangle:
+			pos: self.pos
+			size: self.size
+	AnchorLayout:
+		GridLayout:
+			size_hint: .5, .9
+			rows: 3
+			cols: 2
+			Label:
+				color: 0, 0, 0, 1
+				text: '图片：'
+			AnchorLayout:
+				Button:
+					size_hint: .7, .5
+					text: '选择文件'
+					color: 0, 0, 0, 1
+					background_normal: ''
+					background_color: .7, .7, .7, 1
+					on_press: root.on_file_choose()
+			Label:
+				color: 0, 0, 0, 1
+				text: '外边框: '
+			AnchorLayout:
+				Button:
+					id: outer_btn
+					size_hint: .9, .3
+					background_normal: ''
+					background_color: 165.0/255.0, 128.0/255.0, 56.0/255.0, 1
+					on_press: root.on_picker('outer')
+			Label:
+				color: 0, 0, 0, 1
+				text: '内边框: '
+			AnchorLayout:
+				Button:
+					id: inner_btn
+					size_hint: .9, .3
+					background_normal: ''
+					background_color: 183.0/255.0, 156.0/255.0, 64.0/255.0, 1
+					on_press: root.on_picker('inner')
+	AnchorLayout:
+		anchor_y: 'top'
+		Button:
+			size_hint: .2, .2
+			text: '生成指令'
+			color: 0, 0, 0, 1
+			background_normal: ''
+			background_color: .7, .7, .7, 1
+			on_press: root.on_gen_commands()
+	ScrollView:
+
